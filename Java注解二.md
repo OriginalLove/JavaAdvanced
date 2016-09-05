@@ -37,14 +37,14 @@ tags: Java进阶
 2.    **定义一个名为AptAnnotation的注解，其中如果@Target 和@Retention不了解的可以去 [Java注解一](http://iuni.life/2016/08/30/Java%E6%B3%A8%E8%A7%A3%E4%B8%80/) 进行了解**
 
       ```java
-                  package iuni.life;
+                                 package iuni.life;
 
-                  import java.lang.annotation.ElementType;
-                  import java.lang.annotation.Retention;
-                  import java.lang.annotation.RetentionPolicy;
-                  import java.lang.annotation.Target;
+                                 import java.lang.annotation.ElementType;
+                                 import java.lang.annotation.Retention;
+                                 import java.lang.annotation.RetentionPolicy;
+                                 import java.lang.annotation.Target;
 
-                                   /**
+                                                  /**
       * Created by  iuni.life on 16/8/30.
       * yangfei's computer
       */
@@ -65,7 +65,11 @@ tags: Java进阶
 
       * 新建一个AptAnnotationProcessor.class并继承自AbstractProcessor，可能会出现"Usage of API documented as @since 1.6+" 这个错误，出现这个错误就要修改语言等级，语言等级修改成1.6以上就可以了，我们修改成1.7（因为是在Android studio测试，而Android studio中支持Java8的jack编译器并不支持apt插件），如下是修改流程:    
 
-        ![javaApt5](Java注解二/javaApt5.png)![javaApt6](Java注解二/javaApt6.png)
+        ![javaApt5](Java注解二/javaApt5.png)
+
+        ​
+
+        ![javaApt6](Java注解二/javaApt6.png)
 
         点击Apply,OK 即可。
 
@@ -178,55 +182,52 @@ tags: Java进阶
 4.    **现在我们需要生成Jar文件，需要修改pom.xml,默认生成的pom.xml需要再添加jar，和maven-compiler-plugin,修改后如下所示：**
 
       ```xml
-         <?xml version="1.0" encoding="UTF-8"?>
-         <project xmlns="http://maven.apache.org/POM/4.0.0"
-                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-             <modelVersion>4.0.0</modelVersion>
+                        <?xml version="1.0" encoding="UTF-8"?>
+                        <project xmlns="http://maven.apache.org/POM/4.0.0"
+                                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                                 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+                            <modelVersion>4.0.0</modelVersion>
 
-             <groupId>iuni.life</groupId>
-             <artifactId>iuni</artifactId>
-             <version>1.0-SNAPSHOT</version>
-             <packaging>jar</packaging>
-             <build>
-                 <plugins>
-                     <plugin>
-                         <artifactId>maven-compiler-plugin</artifactId>
-                         <version>2.3.2</version>
-                         <configuration>
-                             <source>1.6</source>
-                             <target>1.6</target>
-                             <!-- Disable annotation processing for ourselves. -->
-                             <compilerArgument>-proc:none</compilerArgument>
-                         </configuration>
-                     </plugin>
-                 </plugins>
-             </build>
+                            <groupId>iuni.life</groupId>
+                            <artifactId>iuni</artifactId>
+                            <version>1.0-SNAPSHOT</version>
+                            <packaging>jar</packaging>
+                            <build>
+                                <plugins>
+                                    <plugin>
+                                        <artifactId>maven-compiler-plugin</artifactId>
+                                        <version>2.3.2</version>
+                                        <configuration>
+                                            <source>1.6</source>
+                                            <target>1.6</target>
+                                            <!-- Disable annotation processing for ourselves. -->
+                                            <compilerArgument>-proc:none</compilerArgument>
+                                        </configuration>
+                                    </plugin>
+                                </plugins>
+                            </build>
 
-         </project>
+                        </project>
       ```
 
-      ​
+5.    **打成jar文件步骤如下图流程所示:** ![javaApt5](Java注解二/javaApt5.png)
 
-5.    **打成jar文件步骤如下图流程所示:**
 
-      ![javaApt5](Java注解二/javaApt5.png)![javaApt7](Java注解二/javaApt7.png)![javaApt9](Java注解二/javaApt9.png)![javaApt8](Java注解二/javaApt8.png)
 
-         目前为止，项目目录应该是下图所示：
+  ![javaApt7](Java注解二/javaApt7.png)
 
-      ![javaApt10](Java注解二/javaApt10.png)
+  ![javaApt9](Java注解二/javaApt9.png)
 
-6.    **在resources资源文件夹下新建META-INF/services/javax.annotation.processing.Processor文件，在META-INF中显示标识，以便AptAnnotationProcessor被使用,**(其中services需要自己新建Directory)
+![javaApt8](Java注解二/javaApt8.png)
 
-      ![javaApt11](Java注解二/javaApt11.png)
+目前为止，项目目录应该是下图所示：   ![javaApt10](Java注解二/javaApt10.png)
 
-       目前为止，项目目录应该是这样：
 
-      ![javaApt12](Java注解二/javaApt12.png)
+6.    **在resources资源文件夹下新建META-INF/services/javax.annotation.processing.Processor文件，在META-INF中显示标识，以便AptAnnotationProcessor被使用,**(其中services需要自己新建Directory) ![javaApt11](Java注解二/javaApt11.png)
 
-        在javax.annotation.processing.Processor中写入我们的AptAnnotationProcessor完整名称：“iuni.life.AptAnnotationProcessor”，如下图：
 
-      ![javaApt13](Java注解二/javaApt13.png)
+ 目前为止，项目目录应该是这样：   ![javaApt12](Java注解二/javaApt12.png)在javax.annotation.processing.Processor中写入我们的AptAnnotationProcessor完整名称：“iuni.life.AptAnnotationProcessor”，如下图：   ![javaApt13](Java注解二/javaApt13.png)
+
 
 7.    **执行“Make Project”**
 
@@ -238,9 +239,7 @@ tags: Java进阶
 
 8.    **生成jar文件**
 
-      在执行步骤7无错误的情况下会在如下的文件目录下生成jar包：
-
-      ![javaApt15](Java注解二/javaApt15.png)
+            在执行步骤7无错误的情况下会在如下的文件目录下生成jar包：![javaApt15](Java注解二/javaApt15.png)
 
 
 
@@ -329,9 +328,13 @@ tags: Java进阶
 
 
 
+有关Java注解的调试详见[Java 注解三](http://www.iuni.life/2016/08/31/Java%E6%B3%A8%E8%A7%A3%E4%B8%89/)
 
 
 
+# 后记
+
+文章有不足之后，请大家多多指教，共同学习，共同进步。
 
 
 
