@@ -204,7 +204,7 @@ public @interface Test {
 
 
 
-因篇幅原因，apt实现注解处理器详见 [Java注解二](http://iuni.life/2016/08/30/Java%E6%B3%A8%E8%A7%A3%E4%BA%8C/)。
+因篇幅原因，apt实现注解处理器详见 [Java注解二](https://github.com/OriginalLove/JavaAdvanced/blob/master/Java%E6%B3%A8%E8%A7%A3%E4%BA%8C.md)。
 
 
 

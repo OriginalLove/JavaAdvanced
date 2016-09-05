@@ -16,7 +16,7 @@ tags: Java进阶
 
 **注意:**
 
-​	本篇是对[Java注解二](http://iuni.life/2016/08/30/Java%E6%B3%A8%E8%A7%A3%E4%BA%8C/) 中的实例进行调试。
+​	本篇是对[Java注解二](https://github.com/OriginalLove/JavaAdvanced/blob/master/Java%E6%B3%A8%E8%A7%A3%E4%BA%8C.md) 中的实例进行调试。
 
 ## 准备工作
 
